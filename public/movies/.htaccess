@@ -1,0 +1,7 @@
+#Contents of .htaccess
+
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^http://localhost/projects/aron/try/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.localhost/projects/aron/try/.*$ [NC]
+RewriteRule .(mp4|mp3|avi)$ - [F]
+

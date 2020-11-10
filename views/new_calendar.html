@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח שנה</title>
+    <link rel="stylesheet" href="css/calendar.css">
+    <script src="js/calendar.js"></script>
+</head>
+<body dir="rtl" style="margin-top: 5%;">
+    <div class="entry-content">
+        <div id="caldiv">
+            <div class="noborder" style="margin-bottom: 10px;">
+                
+                <div id="hebrew_title" style="margin-top: 3px;"></div>
+                <div id="georgian_title" style="margin-top: 3px;"></div>
+                
+                <div id="nav">
+                    <input title="שנה קודמת" onclick="NextPrev('y',-1);" value="&lt;&lt;" type="button" />
+                    <input title="חודש קודם" onclick="NextPrev('m',-1);" value="&lt;" type="button" />
+                    <input title="חודש הבא" onclick="NextPrev('m',1)" value="&gt;" type="button" />
+                    <input title="שנה הבאה" onclick="NextPrev('y',1)" value="&gt;&gt;" type="button" />
+                </div>
+            </div>
+            <table id="cal" class="calendar" cellspacing="0" width="100%">
+                <tbody>
+                    <tr class="firsttr">
+                        <td width="14%" align="middle">ראשון</td>
+                        <td width="14%" align="middle">שני</td>
+                        <td width="14%" align="middle">שלישי</td>
+                        <td width="14%" align="middle">רביעי</td>
+                        <td width="14%" align="middle">חמישי</td>
+                        <td width="14%" align="middle">שישי</td>
+                        <th width="14%">שבת</th>   
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form id="theform" onsubmit="subformI();return false;">
+                <span>חודש: </span>
+                <select style="width: 75px;" onchange="subformI();" name="month">
+                    <option selected="selected" value="1">תשרי</option>
+                    <option value="2">חשון</option>
+                    <option value="3">כסליו</option>
+                    <option value="4">טבת</option>
+                    <option value="5">שבט</option>
+                    <option value="6">אדר א'</option>
+                    <option value="7">אדר (שני)</option>
+                    <option value="8">ניסן</option>
+                    <option value="9">אייר</option>
+                    <option value="10">סיון</option>
+                    <option value="11">תמוז</option>
+                    <option value="12">אב</option>
+                    <option value="13">אלול</option>
+                </select>
+                <span>שנה: </span>
+                <input style="width: 52px;" size="7" name="year" oninput="subformI();" type="text" />
+                <span id="alert"></span> <input onclick="subformI();" value="הכן את הלוח" type="button" />
+            </form>
+            <div class="form" style="text-align: right;">
+                <!-- <input style="margin-right: 7px;" onclick="window.print();return false;" value="הדפס לוח" type="button" /> -->
+                <button id="cd" onclick="changedir();">משמאל לימין</button>
+                <input onclick="startup();" value="חזרה לחודש נוכחי" type="button" />
+                <div class="spon"><a href="http://oneplusone.co.il/DefaultMobile.aspx">אליסף מובשוביץ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">
+        <div id="p">
+            <div id="ptitle" class="noborder"></div>
+            <table id="Pcal" class="calendar Scal" cellspacing="0">
+            <tbody>
+            <tr class="firsttr">
+            <td width="14%" align="middle">ראשון</td>
+            <td width="14%" align="middle">שני</td>
+            <td width="14%" align="middle">שלישי</td>
+            <td width="14%" align="middle">רביעי</td>
+            <td width="14%" align="middle">חמישי</td>
+            <td width="14%" align="middle">שישי</td>
+            <th width="14%">שבת</th></tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+        <div id="n">
+        <div id="ntitle" class="noborder"></div>
+        <table id="Ncal" class="calendar Scal" cellspacing="0">
+        <tbody>
+        <tr class="firsttr">
+        <td width="14%" align="middle">ראשון</td>
+        <td width="14%" align="middle">שני</td>
+        <td width="14%" align="middle">שלישי</td>
+        <td width="14%" align="middle">רביעי</td>
+        <td width="14%" align="middle">חמישי</td>
+        <td width="14%" align="middle">שישי</td>
+        <th width="14%">שבת</th></tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        startup();
+    </script>
+</body>
+</html>

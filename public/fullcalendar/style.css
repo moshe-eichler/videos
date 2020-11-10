@@ -1,0 +1,12 @@
+#container{
+    float: left;
+    width: 45%;
+    text-align: center;
+    margin: 10px;
+}
+
+#the_movies{
+    float: right;
+    width: 50%;
+    text-align: center;
+}

@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang='he'>
+  <head>
+    <meta charset='utf-8' />
+
+    <!-- <link href='fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
+    <link href='fullcalendar/style.css' rel='stylesheet' /> -->
+
+    <!-- JQuery & bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" crossorigin="anonymous"></script>
+
+    <!-- style bootstrap -->
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+
+    <!-- <script>
+      function check_connect(){
+        connect = $.cookie("LoggedIn");
+        if (connect == undefined) {
+            window.location.href = "login.html";
+        } else {
+          console.log(typeof(connect));
+          $.post( "scripts/check_connect.py", JSON.stringify({ "cookie": connect }))
+          .done(function( data ) {
+              console.log(data);
+              myObj = JSON.parse(data);
+              
+              if (myObj.ok == false){
+                  window.location.href = "login.html";
+              }
+          });
+        }
+      }
+
+      check_connect();
+    </script> -->
+
+    <!-- fullcalendar script -->
+    <!-- <script src='fullcalendar/core/main.js'></script>
+    <script src='fullcalendar/daygrid/main.js'></script>
+    <script src='fullcalendar/interaction/main.js'></script>
+    <script src='fullcalendar/list/main.js'></script> -->
+
+    <style>
+      video {
+          width: 75%;
+          height: 50;
+      }
+
+      .entry-content {
+        width: 50%;
+        margin-top: 5%;
+        float: left;
+      }
+
+      #the_movies {
+        width: 50%;
+      }
+
+    </style>
+
+    <!-- for the jewish calendar -->
+    <link rel="stylesheet" href="css/calendar.css">
+    <script src="js/calendar.js"></script>
+    
+    <!-- for the cookies -->
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/jquery.ajaxfileupload.js"></script>
+
+  </head>
+  <body dir="rtl">
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">בחר סרט ותאריך לתזמון</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="text-align: right;">
+            <label for="video_selector">בחר סרטון</label>
+            <select name="videos" id="video_selector"></select>
+            <br>
+            <label for="date">בחר תאריך</label>
+            <input type="date" name="data" id="date">
+            <br>
+            <label for="time">בחר שעה</label>
+            <input type="time" name="time" id="time">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="send" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- the schedules modal -->
+      
+    <!-- en the schedules modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="while_upload" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            
+          </div>
+          <div class="modal-body" style="text-align: right;">
+            <h2>המתן בזמן ההעלאת הסרטון</h2>
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- the calendar -->
+    <!-- <div id="container">
+      <h2>בחר תאריך לתזמן את הפעלת הסרטון</h2>
+      <div id='calendar'>
+      </div>
+    </div> -->
+
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #dbdddf;">
+      <a class="navbar-brand" target="_blank" href="http://alef-adv.com/"><img src="movies/logo.gif" style="height: 50px;" alt="alef-logo"></a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" target="_blank" href="./view"><h6>לסרטונים המתוזמנים</h6></a>
+          <a class="nav-item nav-link active" target="_blank" href="https://record.ussl.co.il/"><h6>לרכישת סרטונים נוספים</h6></a>
+          <a class="nav-item nav-link active" href="./get_schedules"><h6>לכל הסרטונים המתוזמנים</h6></a>
+          <a class="nav-item nav-link active" href="./log_out"><h6>יציאה</h6></a>
+        </div>
+      </div>
+    </nav>
+    <!-- end nav bar -->
+
+    <!-- the jewish calendar -->
+    <div class="entry-content">
+        <div id="caldiv">
+            <div class="noborder" style="margin-bottom: 10px;">
+                
+                <div id="hebrew_title" style="margin-top: 3px;"></div>
+                <div id="georgian_title" style="margin-top: 3px;"></div>
+                
+                <div id="nav">
+                    <input title="שנה קודמת" onclick="NextPrev('y',-1);" value="&lt;&lt;" type="button" />
+                    <input title="חודש קודם" onclick="NextPrev('m',-1);" value="&lt;" type="button" />
+                    <input title="חודש הבא" onclick="NextPrev('m',1)" value="&gt;" type="button" />
+                    <input title="שנה הבאה" onclick="NextPrev('y',1)" value="&gt;&gt;" type="button" />
+                </div>
+            </div>
+            <table id="cal" class="calendar" cellspacing="0" width="100%">
+                <tbody>
+                    <tr class="firsttr">
+                        <td width="14%" align="middle">ראשון</td>
+                        <td width="14%" align="middle">שני</td>
+                        <td width="14%" align="middle">שלישי</td>
+                        <td width="14%" align="middle">רביעי</td>
+                        <td width="14%" align="middle">חמישי</td>
+                        <td width="14%" align="middle">שישי</td>
+                        <th width="14%">שבת</th>   
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form id="theform" onsubmit="subformI();return false;">
+                <span>חודש: </span>
+                <select style="width: 75px;" onchange="subformI();" name="month">
+                    <option selected="selected" value="1">תשרי</option>
+                    <option value="2">חשון</option>
+                    <option value="3">כסליו</option>
+                    <option value="4">טבת</option>
+                    <option value="5">שבט</option>
+                    <option value="6">אדר א'</option>
+                    <option value="7">אדר (שני)</option>
+                    <option value="8">ניסן</option>
+                    <option value="9">אייר</option>
+                    <option value="10">סיון</option>
+                    <option value="11">תמוז</option>
+                    <option value="12">אב</option>
+                    <option value="13">אלול</option>
+                </select>
+                <span>שנה: </span>
+                <input style="width: 52px;" size="7" name="year" oninput="subformI();" type="text" />
+                <span id="alert"></span> <input onclick="subformI();" value="הכן את הלוח" type="button" />
+            </form>
+            <div class="form" style="text-align: right;">
+                <!-- <input style="margin-right: 7px;" onclick="window.print();return false;" value="הדפס לוח" type="button" /> -->
+                <button id="cd" onclick="changedir();">משמאל לימין</button>
+                <input onclick="startup(); showSchedule();" value="חזרה לחודש נוכחי" type="button" />
+                <div class="spon"><a href="http://oneplusone.co.il/">אליסף מובשוביץ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">
+        <div id="p">
+            <div id="ptitle" class="noborder"></div>
+            <table id="Pcal" class="calendar Scal" cellspacing="0">
+            <tbody>
+            <tr class="firsttr">
+            <td width="14%" align="middle">ראשון</td>
+            <td width="14%" align="middle">שני</td>
+            <td width="14%" align="middle">שלישי</td>
+            <td width="14%" align="middle">רביעי</td>
+            <td width="14%" align="middle">חמישי</td>
+            <td width="14%" align="middle">שישי</td>
+            <th width="14%">שבת</th></tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+        <div id="n">
+        <div id="ntitle" class="noborder"></div>
+        <table id="Ncal" class="calendar Scal" cellspacing="0">
+        <tbody>
+        <tr class="firsttr">
+        <td width="14%" align="middle">ראשון</td>
+        <td width="14%" align="middle">שני</td>
+        <td width="14%" align="middle">שלישי</td>
+        <td width="14%" align="middle">רביעי</td>
+        <td width="14%" align="middle">חמישי</td>
+        <td width="14%" align="middle">שישי</td>
+        <th width="14%">שבת</th></tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        startup();
+        // 🟢
+    </script> 
+    <!-- end the jewish calendar -->
+
+    <!-- the movies -->
+    <div id="the_movies">
+      <h2>הסרטונים שלך</h2>
+      <div id="videos" oncontextmenu="return false;"></div>
+      <hr style="width: 80%;">
+      <h3>העלאת סרטונים פרטיים:</h3>
+      <form action="uploadfile" method="post" enctype="multipart/form-data">
+        <input type="file" accept=".avi,.mp4,.mov,.wmv" id="fileid" name="myFiles" multiple>
+        <input type="submit" value="upload" id="upload">
+      </form>
+      <!-- <hr style="width: 80%;">
+      <a href="#"><h2>לרכישת סרטונים נוספים</h2></a> -->
+    </div>
+    <script src="js/dash.all.min.js"></script>
+    
+  </body>
+  <script>
+    (function($){
+      document.addEventListener('DOMContentLoaded', function() {
+        //   var calendarEl = document.getElementById('calendar');
+
+        //   var calendar = new FullCalendar.Calendar(calendarEl, {
+        //     plugins: [ 'dayGrid', 'interaction', 'list' ]
+        //   });
+
+        //   calendar.render();
+        // handle the modal
+        $(".close").click(function(){
+          $('#modal').modal('hide')
+        })
+
+        $("td").click(function(e){
+          // set the date to the current date
+          let all_div = e.target.getElementsByTagName('div');
+          let d_date = $(all_div).attr('id');
+          let check_day = d_date.slice(1, d_date.length);
+          let check_month = (check_day.slice(-2,-1) == '-')? check_day.slice(0,-1) + '0' + check_day.slice(-1) : check_day;
+          let date = (parseInt(check_month.slice(check_month.indexOf('-')+1, check_month.lastIndexOf('-'))) < 9)? check_month.slice(0, 5) + '0' + (parseInt(check_month.slice(5, 6)) + 1) + check_month.slice(6, check_month.length) : check_month.slice(0, check_month.indexOf('-')+1) + (parseInt(check_month.slice(check_month.indexOf('-')+1, check_month.lastIndexOf('-'))) + 1) + check_month.slice(check_month.lastIndexOf('-'), check_month.length);
+          $("#date").attr("value", date);
+          
+          // set the time to the current time
+          let time = new Date();
+          let hours = (parseInt(time.getHours()) < 10)? '0' + time.getHours() : time.getHours();
+          let minutes = (parseInt(time.getMinutes()) < 10)? '0' + time.getMinutes() : time.getMinutes();
+          let current_time = hours + ':' + minutes;
+          $("#time").attr("value", current_time);
+          
+          $('#modal').modal('show')
+        });
+
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            $('#modal').modal('hide')
+          }
+        } 
+      });
+
+      $.get("get_videos", function(result){
+        let videos = JSON.parse(result);
+        // let videos_arr = Array.from(videos_res);
+        videos.forEach((element, index) => {
+          $("#videos").append('<video id="videoPlayer'+index+'" controls></video>');
+          (function(){
+              let url ="movies/"+element['url'];
+              let player = dashjs.MediaPlayer().create();
+              player.initialize(document.querySelector("#videoPlayer"+index), url, true);
+          })();
+          $("#video_selector").append('<option value='+element['url']+'>'+element['description']+'</option>')
+        });
+      });
+
+      // $("#videos").append('<video id="videoPlayer" controls></video>');
+
+      
+      // handle the schedule box
+      $("#send").click(function(){
+        $('#modal').modal('hide')
+        let url = $("#video_selector").val();
+        let description = $("#video_selector option:selected").html();
+        let date_time = $("#date").val() + " " + $("#time").val();
+        let cookie = $.cookie("LoggedIn");
+        $.post( "schedule_a_video", { "url": url, "datetime": date_time, "description": description, "cookie": cookie })
+        .done(function( data ) {
+            console.log(data);
+        });
+      });
+      
+      // $("#upload").click(function(){
+      //   ajaxfileupload({
+      //     'action': 'scripts/save_file.py',
+      //     'onComplete': function(response) {
+      //       console.log('custom handler for file:');
+      //       alert(JSON.stringify(response));
+      //     },
+      //     'onStart': function() {
+      //       if(weWantedTo) return false; // cancels upload
+      //     },
+      //     'onCancel': function() {
+      //       console.log('no file selected');
+      //     }
+      //   });
+      // });
+    })(jQuery)
+
+  </script>
+</html>

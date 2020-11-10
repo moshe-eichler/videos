@@ -1,0 +1,55 @@
+.vac button {padding:1px 4px}
+table a {text-decoration:underline}
+#nav select,  #nav input, #form select, #form input ,button, input[type="button"]{cursor:pointer}
+select:focus, button:focus, button:hover, input:focus, input:hover {-webkit-box-shadow: 0 0 3px 1px #27d;-moz-box-shadow: 0 0 3px 1px #27d;box-shadow: 0 0 3px 1px #27d;}        #mobile {float:right;} .ad {margin:3px auto;width:728px;text-align:center;padding:3px 0;}    
+#alert {color:red}#hebrew_title {float:right}#georgian_title {float:left}#nav{width:40%;text-align:center;margin:0 auto;}
+#curcal {border: #9999ff 1px solid; -webkit-box-shadow: 1px 2px 4px #555;-ms-box-shadow: 2px 2px 4px #555;box-shadow: 2px 2px 4px #555;-moz-box-shadow: 2px 2px 4px #555;}
+.personal{margin:0 auto 2px;width:90%;font-size:90%;display:none} .personal:hover {outline: 1px solid #ccc;}
+#info2 {float:right;margin: 0px 5px 10px 0px;} #info2 ul {margin-right: 25px;margin-left: 10px;float:left;}
+#contact_head {width:845px;height:60px}
+#main_menu {margin: 10px 80px 0 0;float:right}
+#main_menu li {margin:0 0 2px 17px;} .entry-content li a {text-decoration:underline} .vac{font-size:12px;}
+#hebr {border:1px solid #27D; margin:0px 5px; color:#333; text-align:center; padding:4px 3px; width:160px; float:left; font-size:12px; border-radius:4px 4px;-webkit-box-shadow: 1px 2px 1px #777;-moz-box-shadow: 1px 2px 1px #777;box-shadow: 1px 2px 1px #777;} #hebr b {color:#336} #hebr:hover {background:#27d;color:white;cursor:pointer;} 
+#inp{margin: 77px auto 0;width:120px;}
+#kadish{margin: 5px 30px;float:left;}.menu li{float:right}
+#bigp{float:left; margin:3px 0 0 2px;}
+#leftb{margin:10px 5px;}
+#taarich{float:left; height:20px; padding:3px; font-size:13px}
+html, body, div, span, h1, h4, p, a, img, small,  b, u, i, center, 
+ul, li, form {margin:0; padding:0}.blog-title a{text-shadow: #ccc 1px 1px 2px}
+h4{font-family:Verdana,sans-serif}body{font-size:75%;color:#444; /*background:#eee;*/ text-align:center;font-family:"Arial Hebrew",arial,sans-serif}#page{border-radius:10px;text-align:right; margin:10px auto;/*border:1px solid #ddd;*/ border-top:none; width:900px}
+#header{position:relative; height:348px;}#headH {
+height: 55px;
+}
+.content{padding:0 15px 5px;}
+ul.menu{ white-space:nowrap;  margin:5px 10px}
+*+html ul.menu{margin:0 320px}ul.menu, ul.menu li{float:right; list-style:none}
+.blog-title{float:right; font-size:3em; padding:6px 25px 0}
+.blog-title a, #header .description{color:#999; font-weight:bold}
+.blog-title a:hover{text-decoration:none}#header .description{font-size:1.3em; float:right; margin:17px 4px}
+h4{font-size:2.0em; font-weight:normal}body.page #current-content .entry-title{text-align:right}
+.entry-content h4{font-size:1.5em; font-weight:normal; margin-top:25px}
+.entry-head{margin:15px 125px 0 0; position:relative; width:230px}
+body.page .entry-content h4{font-size:1.5em; display:block; padding:15px 0 0}
+.entry-title, h4{color:#444;font-weight: normal;}
+.entry-title{font-size:2.5em;float:right;}
+.entry-content{font-size:1.2em; line-height:1.2em; color:#444}
+.entry-content p {margin:13px 0}#footer{margin:0 auto; padding:20px 0; text-align:center; color:#777; line-height:1.6em}
+.entry-content ul {height:35px;margin:25px 130px 0 0}
+#footer a{color:black; font-weight:bold}
+a:hover, a:visited:hover{color:#0000CC;} a{color:#27d; text-decoration:none}
+.entry-content a:visited{color:#b41}.clear{clear:both}a img{border:none}
+#caldiv{width:840px;line-height:1.4em;margin:0 auto;}
+.calendar td{border-bottom:1px solid #aaa;border-left:1px solid #aaa;vertical-align:top;padding:4px 6px 0 0;text-align:right;height:80px;font-size: 16px;}.calendar th{text-align:center;border-bottom:1px solid #aaa;border-left:1px solid #aaa;}.firsttr td{height:20px}.calendar{ border-radius:4px;border:1px solid #aaa;-webkit-box-shadow: 3px 3px 5px #BBB;box-shadow: 3px 3px 5px #BBB;-moz-box-shadow: 3px 3px 5px #BBB;background:#fff;}.noborder{border:none;font-size: 1.2em;font-weight:bold}th{border:0 solid navy}.form{height:44px;margin:10px 10px 0 0}.spon{height:20px;margin:-24px 0 0 10px;text-align:left;color:#000099;font-size:small;}#theform{margin:10px 2px;float:right}.number{font-family:Arial(Hebrew),David(Hebrew),Courier New(Hebrew);font-size:18px;color:#7319B8}.yomtov{font:12pt;color:red}.yomtov a{font-size:11pt; color:#27d;}.specialday,.holiday{font:12pt;color:#b23100}.sadday{font:12pt;color:purple}.katif{color:#ff8000;font:bold}}.personal{font:8pt;color:#900;behavior:url(#default#userdata)}.info{font:8pt italic;color:navy}
+.footerlink {margin:8px;}
+#Pcal {float:right;margin: 0 0 9px 25px}
+.Scal {width:100%;border-color:#aaa;}
+.Scal .number {font-size:14px}
+.Scal span, .Scal div, .Scal td {font-size:12px}
+.Scal .specialday, .Scal .holiday, .Scal .sadday {font-size:11px;line-height:9px;}
+.Scal input {font-size:12px;padding:2px 2px;}
+.Scal td, .Scal th {padding:2px 1px 0 1px;text-align:right;}
+.Scal .personal{margin:0 auto}
+#n, #p {width:410px;}
+#ntitle, #ptitle {padding-bottom:2px;width:100%;text-align:center;font-size:1em;}
+#p{float:right}#n{float:left}.adTop {float:left;}#header li {font-size:16px;margin:5px;}#headerM {margin-right:15px;width:200px}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <!-- rtl bootstrap -->
+        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/login.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </head>
+    <body dir="rtl">
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+            <!-- Tabs Titles -->
+        
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="movies/logo.gif" id="icon" alt="User Icon" />
+            </div>
+        
+            <!-- Login Form -->
+            <form action="login" method="POST">
+                <input type="text" id="login" class="fadeIn second" name="email" placeholder="שם משתמש" required>
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="סיסמה" required>
+                <div class="alert alert-danger" style="display:none">
+                    <strong>שים לב!</strong> אחד או יותר מהנתונים שגוי
+                </div>
+                <input type="submit" id="send" class="fadeIn fourth" value="התחבר">
+            </form>
+        
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">שכחת סיסמה?</a>
+            </div>
+        
+            </div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function(){
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('err');
+            if (error == 1) {
+                $(".alert").show();
+            }
+        })
+        
+    </script>
+</html>
